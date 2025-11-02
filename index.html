@@ -6,189 +6,193 @@
 <title>ZATCA Saudi Arabia Invoice Workflow</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #fefefe, #e3f2fd);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-  }
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #fefefe, #e3f2fd);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
 
-  .workflow-container {
-    background: #fff;
-    padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    max-width: 1000px;
-    width: 100%;
-  }
+.workflow-container {
+  background: #fff;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  max-width: 1100px;
+  width: 100%;
+}
 
-  h1 {
-    text-align: center;
-    color: #0d47a1;
-    margin-bottom: 20px;
-    font-size: 2em;
-  }
+h1 {
+  text-align: center;
+  color: #0d47a1;
+  margin-bottom: 10px;
+  font-size: 2em;
+}
 
-  h3 {
-    text-align: center;
-    color: #1976d2;
-    font-weight: 400;
-    margin-bottom: 40px;
-  }
+h3 {
+  text-align: center;
+  color: #1976d2;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
 
+.workflow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.step {
+  background: #1976d2;
+  color: white;
+  flex: 1 1 180px;
+  margin: 15px;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.25);
+}
+
+.step::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -25px;
+  width: 50px;
+  height: 4px;
+  background: #42a5f5;
+  transform: translateY(-50%);
+  animation: pulse 2s infinite;
+}
+
+.step:last-child::after {
+  display: none;
+}
+
+@keyframes pulse {
+  0%,100% { background-color: #42a5f5; }
+  50% { background-color: #90caf9; }
+}
+
+.icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.step-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.step-desc {
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+/* Tooltip */
+.step .tooltip {
+  visibility: hidden;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85em;
+  width: 200px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 10;
+}
+
+.step:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
   .workflow {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    position: relative;
+    flex-direction: column;
   }
-
-  .step {
-    background: #1976d2;
-    color: white;
-    flex: 1 1 150px;
-    margin: 15px;
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease;
-  }
-
-  .step.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .step:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 25px rgba(0,0,0,0.25);
-  }
-
   .step::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -25px;
-    width: 50px;
-    height: 4px;
-    background: #42a5f5;
-    transform: translateY(-50%);
-    animation: pulse 2s infinite;
-  }
-
-  .step:last-child::after {
     display: none;
   }
-
-  @keyframes pulse {
-    0%,100% { background-color: #42a5f5; }
-    50% { background-color: #90caf9; }
-  }
-
-  .icon {
-    font-size: 2em;
-    margin-bottom: 10px;
-  }
-
-  .step-title {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-
-  .step-desc {
-    font-size: 0.95em;
-    line-height: 1.4;
-  }
-
-  /* Tooltip */
-  .step .tooltip {
-    visibility: hidden;
-    background: rgba(0,0,0,0.8);
-    color: #fff;
-    text-align: center;
-    padding: 8px 12px;
-    border-radius: 6px;
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.85em;
-    width: 180px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 10;
-  }
-
-  .step:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  @media (max-width: 800px) {
-    .workflow {
-      flex-direction: column;
-    }
-    .step::after {
-      display: none;
-    }
-  }
+}
 </style>
 </head>
 <body>
 
 <div class="workflow-container">
   <h1>ZATCA Invoice Workflow</h1>
-  <h3>Automated Dynamics → ZATCA Clearance (Saudi Arabia)</h3>
+  <h3>Standard, Simplified, Credit & Debit Notes (Saudi Arabia VAT)</h3>
   <div class="workflow">
     <div class="step">
       <div class="icon">🛠️</div>
       <div class="step-title">Setup & Planning</div>
-      <div class="step-desc">Prepare server, gather sandbox credentials, and define API type.</div>
-      <div class="tooltip">This ensures a smooth connection to ZATCA sandbox.</div>
+      <div class="step-desc">Prepare server, sandbox credentials, and API type.</div>
+      <div class="tooltip">Ensures smooth connection to ZATCA sandbox.</div>
+    </div>
+    <div class="step">
+      <div class="icon">📂</div>
+      <div class="step-title">Invoice / Note Classification</div>
+      <div class="step-desc">Identify document type: standard invoice, simplified invoice, credit note, or debit note.</div>
+      <div class="tooltip">Determines XML structure and ZATCA processing rules.</div>
     </div>
     <div class="step">
       <div class="icon">📄</div>
       <div class="step-title">XML Conversion & Signing</div>
-      <div class="step-desc">Transform Dynamics invoices to ZATCA-compliant XML with digital signature.</div>
-      <div class="tooltip">UBL 2.1 format, UUID, timestamps & CSID applied for Phase 2 validation.</div>
+      <div class="step-desc">Convert all document types to ZATCA-compliant UBL 2.1 XML.</div>
+      <div class="tooltip">Digital signature, UUID, timestamps, and CSID applied for Phase 2 validation.</div>
     </div>
     <div class="step">
       <div class="icon">🚀</div>
       <div class="step-title">ZATCA Submission</div>
-      <div class="step-desc">Submit invoices to ZATCA sandbox and receive clearance responses.</div>
-      <div class="tooltip">Approved, rejected, or error responses are processed automatically.</div>
+      <div class="step-desc">Submit documents to ZATCA sandbox and handle approvals/rejections.</div>
+      <div class="tooltip">Approved XML & QR code returned for printing and archiving.</div>
     </div>
     <div class="step">
       <div class="icon">🔄</div>
       <div class="step-title">Dynamics Integration</div>
-      <div class="step-desc">Push cleared XML & QR codes back to Dynamics for printing.</div>
-      <div class="tooltip">Invoices ready to print with ZATCA QR code embedded.</div>
+      <div class="step-desc">Push cleared XML & QR codes back to Dynamics for printing and records.</div>
+      <div class="tooltip">All document types properly displayed with QR codes.</div>
     </div>
     <div class="step">
       <div class="icon">✅</div>
       <div class="step-title">Testing & Logging</div>
-      <div class="step-desc">Simulate full round-trip and log every request/response.</div>
-      <div class="tooltip">Audit-ready logs for compliance with Saudi regulations.</div>
+      <div class="step-desc">Simulate full workflow for all document types, log all transactions.</div>
+      <div class="tooltip">Audit-ready logs for Saudi VAT compliance.</div>
     </div>
     <div class="step">
       <div class="icon">📘</div>
       <div class="step-title">Deployment & Documentation</div>
-      <div class="step-desc">Provide installation guide and commented source for maintenance.</div>
-      <div class="tooltip">Easy setup in under 30 minutes on a fresh server.</div>
+      <div class="step-desc">Installation guide and commented source code for maintenance.</div>
+      <div class="tooltip">Easy deployment on fresh Windows Server under 30 minutes.</div>
     </div>
   </div>
 </div>
 
 <script>
-  // Animate steps one by one
   const steps = document.querySelectorAll('.step');
   steps.forEach((step, index) => {
     setTimeout(() => {
