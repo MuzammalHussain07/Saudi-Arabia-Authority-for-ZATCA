@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamics → ZATCA Workflow</title>
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .workflow-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 900px;
+    width: 100%;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #1a73e8;
+  }
+
+  .workflow {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .step {
+    background: #1a73e8;
+    color: white;
+    flex: 1 1 150px;
+    margin: 10px;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.5s, box-shadow 0.5s;
+  }
+
+  .step:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+  }
+
+  .step::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    width: 40px;
+    height: 4px;
+    background: #1a73e8;
+    transform: translateY(-50%);
+    animation: pulse 2s infinite;
+  }
+
+  .step:last-child::after {
+    display: none;
+  }
+
+  @keyframes pulse {
+    0%, 100% { background-color: #1a73e8; }
+    50% { background-color: #4fc3f7; }
+  }
+
+  .step-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+
+  .step-desc {
+    font-size: 0.9em;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 700px) {
+    .workflow {
+      flex-direction: column;
+    }
+    .step::after {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="workflow-container">
+  <h2>Dynamics → ZATCA Invoice Workflow</h2>
+  <div class="workflow">
+    <div class="step">
+      <div class="step-title">1. Setup & Planning</div>
+      <div class="step-desc">Prepare server, gather sandbox credentials, decide API type.</div>
+    </div>
+    <div class="step">
+      <div class="step-title">2. XML Conversion & Signing</div>
+      <div class="step-desc">Transform Dynamics invoices to ZATCA-compliant XML with digital signatures.</div>
+    </div>
+    <div class="step">
+      <div class="step-title">3. ZATCA Submission</div>
+      <div class="step-desc">Send invoices to ZATCA sandbox and handle responses.</div>
+    </div>
+    <div class="step">
+      <div class="step-title">4. Dynamics Integration</div>
+      <div class="step-desc">Push cleared XML & QR codes back to Dynamics for printing.</div>
+    </div>
+    <div class="step">
+      <div class="step-title">5. Testing & Logging</div>
+      <div class="step-desc">Simulate full round-trip, log requests/responses for auditing.</div>
+    </div>
+    <div class="step">
+      <div class="step-title">6. Deployment & Documentation</div>
+      <div class="step-desc">Provide installation guide and commented source for maintenance.</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
